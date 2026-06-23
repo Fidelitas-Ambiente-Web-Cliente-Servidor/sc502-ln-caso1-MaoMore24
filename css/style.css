@@ -1,20 +1,20 @@
 :root {
-  /* ─── Paleta de colores ─────────────────────────
-     TODO: Podés cambiar estos valores para personalizar
-     el tema de tu restaurante
-  ─────────────────────────────────────────────── */
-  --color-primario:    #2C3E50;
-  --color-secundario:  #E67E22;
-  --color-fondo:       #FAF8F5;
-  --color-texto:       #333333;
-  --color-claro:       #FFFFFF;
-  --color-reserva-vip: #FFF3CD; /* fondo para grupos de 6+ personas */
+  /* Paleta de colores cálida y profesional para un restaurante */
+  --color-primario:    #1a252f; /* Azul noche elegante */
+  --color-secundario:  #d35400; /* Naranja terracota */
+  --color-fondo:       #fcfbfa; /* Blanco cálido */
+  --color-texto:       #2c3e50; /* Gris azulado oscuro */
+  --color-claro:       #ffffff;
+  --color-borde:       #cbd5e1; /* Gris de separación */
+  --color-error:       #c0392b; /* Rojo para alertas */
+  --color-reserva-vip: #fef5e7; /* Fondo destacado para grupos grandes (6+) */
+  --color-texto-vip:   #7e5109; /* Color de texto para grupos grandes */
 
   --fuente-titulo: 'Playfair Display', serif;
   --fuente-cuerpo: 'Lato', sans-serif;
 }
 
-/* ─── RESET Y BASE ─── */
+/* Estilos base */
 * {
   margin: 0;
   padding: 0;
@@ -25,4 +25,340 @@ body {
   font-family: var(--fuente-cuerpo);
   background-color: var(--color-fondo);
   color: var(--color-texto);
+  line-height: 1.6;
+}
+
+.main-content {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+/* Header del restaurante */
+.header-restaurante {
+  text-align: center;
+  padding: 4.5rem 1rem;
+  background: linear-gradient(rgba(26, 37, 47, 0.85), rgba(26, 37, 47, 0.95));
+  border-bottom: 4px solid var(--color-secundario);
+  color: var(--color-claro);
+}
+
+.header-titulo {
+  font-family: var(--fuente-titulo);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.header-subtitulo {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* Títulos de Sección */
+.section-title {
+  font-family: var(--fuente-titulo);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-secundario);
+}
+
+/* Botones de filtro */
+.filtros-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.btn-filtro {
+  background-color: transparent;
+  color: var(--color-texto);
+  border: 1px solid var(--color-borde);
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn-filtro:hover {
+  background-color: var(--color-primario);
+  color: var(--color-claro);
+  border-color: var(--color-primario);
+}
+
+.btn-filtro.active {
+  background-color: var(--color-secundario);
+  color: var(--color-claro);
+  border-color: var(--color-secundario);
+}
+
+/* CLASE OBLIGATORIA 1: .card-plato */
+.card-plato {
+  background-color: var(--color-claro);
+  border: 1px solid var(--color-borde);
+  border-radius: 12px;
+  padding: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-plato:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagen de la tarjeta */
+.card-plato-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.card-plato-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.card-plato-titulo {
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0;
+  color: var(--color-primario);
+}
+
+.card-plato-precio {
+  font-weight: 700;
+  color: var(--color-secundario);
+  font-size: 1.15rem;
+  white-space: nowrap;
+}
+
+.card-plato-desc {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.card-plato-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background-color: #f1f5f9;
+  color: #475569;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+/* Contenedor de formulario */
+.contenedor-formulario {
+  background-color: var(--color-claro);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border-top: 4px solid var(--color-primario);
+  margin-bottom: 2rem;
+}
+
+.form-title {
+  font-family: var(--fuente-titulo);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-primario);
+}
+
+.grupo-formulario {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-input, .form-select-custom {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-borde);
+  border-radius: 6px;
+  font-family: var(--fuente-cuerpo);
+  font-size: 0.95rem;
+  background-color: var(--color-claro);
+  color: var(--color-texto);
+  transition: border-color 0.25s ease;
+  outline: none;
+}
+
+.form-input:focus, .form-select-custom:focus {
+  border-color: var(--color-secundario);
+}
+
+textarea.form-input {
+  resize: vertical;
+}
+
+/* Botón de reserva */
+.btn-reservar {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-claro);
+  background-color: var(--color-secundario);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  margin-top: 0.5rem;
+}
+
+.btn-reservar:hover:not(:disabled) {
+  background-color: #b33e00;
+}
+
+.btn-reservar:disabled {
+  background-color: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* CLASE OBLIGATORIA 2: .error-campo */
+.error-campo {
+  color: var(--color-error);
+  font-size: 0.85rem;
+  margin-top: 4px;
+  min-height: 1.25rem;
+  font-weight: 500;
+}
+
+/* Contenedor de la tabla */
+.contenedor-tabla {
+  background-color: var(--color-claro);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.table-title {
+  font-family: var(--fuente-titulo);
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: var(--color-primario);
+}
+
+.tabla-scroll {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--color-borde);
+}
+
+.tabla-reservas-custom {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.tabla-reservas-custom th {
+  background-color: var(--color-primario);
+  color: var(--color-claro);
+  padding: 12px 16px;
+  font-weight: 600;
+}
+
+.tabla-reservas-custom td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-borde);
+  word-break: break-all; /* Rompe correos electrónicos largos para evitar el desbordamiento de la tabla */
+}
+
+/* CLASE OBLIGATORIA 3: .fila-reserva */
+.fila-reserva {
+  background-color: #ffffff;
+  transition: background-color 0.25s ease;
+}
+
+.fila-reserva:hover {
+  background-color: #f8fafc;
+}
+
+/* Color destacado para reservas con 6 o más personas */
+.fila-reserva.reserva-vip {
+  background-color: var(--color-reserva-vip) !important;
+  font-weight: 600;
+  color: var(--color-texto-vip);
+}
+
+/* CLASE OBLIGATORIA 4: .resumen-reservas */
+.resumen-reservas {
+  background-color: #333333;
+  color: var(--color-claro);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.resumen-fila {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+  padding-bottom: 0.5rem;
+}
+
+.resumen-fila-grande {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  padding-top: 0.25rem;
+}
+
+.resumen-reservas span {
+  opacity: 0.95;
+}
+
+.resumen-reservas strong {
+  color: #f39c12;
+  font-size: 1.05rem;
+}
+
+/* RESPONSIVE MÓVIL */
+@media (max-width: 991px) {
+  .header-restaurante {
+    padding: 3rem 1rem;
+  }
+  .header-titulo {
+    font-size: 2.25rem;
+  }
 }

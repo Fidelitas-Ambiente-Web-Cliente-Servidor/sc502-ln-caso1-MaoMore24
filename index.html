@@ -3,26 +3,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Restaurante Ficticio</title>
+  <title>Restaurante Sabor Mediterráneo</title>
 
-  <!-- Bootstrap CSS -->
+  <!-- Bootstrap CSS (Permitido ÚNICAMENTE para el sistema de grillas/layout) -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet"
   />
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts para tipografías personalizadas y legibles -->
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap"
     rel="stylesheet"
   />
 
-  <!-- Estilos propios -->
+  <!-- Estilos propios (CSS Puro) -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <script src="js/app.js"></script>
+  <!-- Encabezado del restaurante -->
+  <header class="header-restaurante">
+    <div class="container">
+      <h1 class="header-titulo">Sabor Mediterráneo</h1>
+      <p class="header-subtitulo">Experiencia gastronómica premium</p>
+    </div>
+  </header>
 
+  <main class="container main-content">
+    <div class="row">
+      
+      <!-- SECCIÓN 1: Menú del Restaurante -->
+      <section class="col-lg-7 col-md-12 mb-5">
+        <h2 class="section-title">Nuestro Menú</h2>
+        
+        <!-- Barra de botones de filtro -->
+        <div class="filtros-wrapper" id="filtros-container">
+          <button class="btn-filtro active" onclick="filtrarCategoria('Todos')">Todos</button>
+          <button class="btn-filtro" onclick="filtrarCategoria('Entrada')">Entradas</button>
+          <button class="btn-filtro" onclick="filtrarCategoria('Plato Fuerte')">Platos Fuertes</button>
+          <button class="btn-filtro" onclick="filtrarCategoria('Postre')">Postres</button>
+        </div>
+
+        <!-- Contenedor dinámico de platillos -->
+        <div class="row" id="menu-container">
+          <!-- Las tarjetas creadas en JS se incluyen aquí -->
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: Reservas y Estadísticas -->
+      <section class="col-lg-5 col-md-12">
+        
+        <!-- Contenedor del Formulario de Reserva -->
+        <div class="contenedor-formulario">
+          <h2 class="form-title">Reservar Mesa</h2>
+          
+          <form id="form-reserva" novalidate>
+            <!-- Entrada: Nombre Completo -->
+            <div class="grupo-formulario">
+              <label for="nombre" class="form-label">Nombre Completo *</label>
+              <input type="text" class="form-input" id="nombre" placeholder="Mauricio Moreira" required />
+              <div id="errorNombre" class="error-campo"></div>
+            </div>
+
+            <!-- Entrada: Correo Electrónico -->
+            <div class="grupo-formulario">
+              <label for="correo" class="form-label">Correo Electrónico *</label>
+              <input type="email" class="form-input" id="correo" placeholder="maomore@correo.com" required />
+              <div id="errorCorreo" class="error-campo"></div>
+            </div>
+
+            <!-- Entrada: Fecha de Reserva -->
+            <div class="grupo-formulario">
+              <label for="fecha" class="form-label">Fecha de Reserva *</label>
+              <input type="date" class="form-input" id="fecha" required />
+              <div id="errorFecha" class="error-campo"></div>
+            </div>
+
+            <!-- Entrada: Hora de Reserva -->
+            <div class="grupo-formulario">
+              <label for="hora" class="form-label">Hora *</label>
+              <select class="form-select-custom" id="hora" required>
+                <option value="" disabled selected>Seleccione la hora...</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+              </select>
+              <div id="errorHora" class="error-campo"></div>
+            </div>
+
+            <!-- Entrada: Número de Personas -->
+            <div class="grupo-formulario">
+              <label for="personas" class="form-label">Número de Personas *</label>
+              <input type="number" class="form-input" id="personas" min="1" max="20" placeholder="Entre 1 y 20 personas" required />
+              <div id="errorPersonas" class="error-campo"></div>
+            </div>
+
+            <!-- Entrada: Comentarios (Opcional) -->
+            <div class="grupo-formulario">
+              <label for="comentarios" class="form-label">Comentarios / Indicaciones especiales</label>
+              <textarea class="form-input" id="comentarios" rows="3" placeholder="Alergias, preferencia de mesa, etc."></textarea>
+            </div>
+
+            <!-- Botón de Envío -->
+            <button type="submit" class="btn-reservar" id="btn-submit" disabled>
+              Confirmar Reserva
+            </button>
+          </form>
+        </div>
+
+        <!-- Tabla de Reservas -->
+        <div class="contenedor-tabla">
+          <h3 class="table-title">Reservas Registradas</h3>
+          <div class="tabla-scroll">
+            <table class="tabla-reservas-custom" id="tabla-reservas">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Num. Personas</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-reservas-body">
+                <!-- Filas creadas con clase .fila-reserva -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Panel de Resumen Dinámico -->
+        <div class="resumen-reservas" id="resumen-container">
+          <div class="resumen-fila">
+            <span>Total de reservas:</span>
+            <strong id="resumen-total-reservas">0</strong>
+          </div>
+          <div class="resumen-fila">
+            <span>Total de personas esperadas:</span>
+            <strong id="resumen-total-personas">0</strong>
+          </div>
+          <div class="resumen-fila-grande">
+            <span>Reserva más grande:</span>
+            <strong id="resumen-reserva-mayor">Ninguna</strong>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Script externo obligatorio -->
+  <script src="js/app.js"></script>
 </body>
 </html>
